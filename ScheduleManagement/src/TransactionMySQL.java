@@ -53,30 +53,6 @@ public class TransactionMySQL {
 		rset.close();
 	}
 
-	private boolean habitacionDisponible(String starttime, String endtime, int weekday) throws SQLException {
-		LocalTime startime= LocalTime.parse(starttime);
-		LocalTime endtimee= LocalTime.parse(endtime);
-
-		ResultSet rset = stmt.executeQuery("select starttime, endtime, weekday, ROOMID from schedule_;");
-		while( rset.next() )
-		{
-			LocalTime baseStartTime = LocalTime.parse(rset.getString(1));
-			LocalTime baseEndTime = LocalTime.parse(rset.getString(2));
-			int baseweekday = Integer.parseInt(rset.getString(3));
-
-				if (baseweekday == weekday) {
-					if (startime.isAfter(baseStartTime) && startime.isBefore(baseEndTime) || startime.equals(baseStartTime) || startime.equals(baseEndTime)) {
-						System.out.println("La tupla no se puede insertar porque se empalma con otra");
-						return false;
-					} else if (endtimee.isAfter(baseStartTime) && endtimee.isBefore(baseEndTime) || endtimee.equals(baseStartTime) || endtimee.equals(baseEndTime)) {
-						System.out.println("La tupla no se puede insertar porque se empalma con otra");
-						return false;
-
-					}
-				}
-		}
-		return true;
-	}
 
 	/*private boolean sePuedeInsertar(String starttime, String endtime, int weekday, String roomid) throws SQLException {
 		LocalTime startime= LocalTime.parse(starttime);
